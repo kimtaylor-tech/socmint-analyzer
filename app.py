@@ -23,40 +23,40 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── DESIGN TOKENS (Light / Talkwalker-inspired) ─────────────────────────────
+# ── DESIGN TOKENS (White / Black / Red / Green) ─────────────────────────────
 BG       = "#ffffff"
-BG2      = "#f7f9f9"
+BG2      = "#f8f8f8"
 SURFACE  = "#ffffff"
-SURFACE2 = "#f1f4f6"
-BORDER   = "#e2e8ed"
-BORDER2  = "#d1d9e0"
-NAVY     = "#012b3a"
-NAVY2    = "#213977"
-TEXT1    = "#012b3a"
-TEXT2    = "#3d5a6e"
-TEXT3    = "#80959c"
-TEXT4    = "#a8bcc4"
-ACCENT   = "#cc326b"   # Talkwalker fuchsia/magenta
-ACCENT2  = "#e03035"   # secondary red
-BLUE     = "#3b82f6"
+SURFACE2 = "#f2f2f2"
+BORDER   = "#e5e5e5"
+BORDER2  = "#d4d4d4"
+NAVY     = "#111111"
+NAVY2    = "#111111"
+TEXT1    = "#111111"
+TEXT2    = "#444444"
+TEXT3    = "#888888"
+TEXT4    = "#bbbbbb"
+ACCENT   = "#111111"
+ACCENT2  = "#dc2626"
+BLUE     = "#888888"
 GREEN    = "#16a34a"
-AMBER    = "#d97706"
+AMBER    = "#dc2626"
 RED      = "#dc2626"
-ORANGE   = "#ea580c"
-VIOLET   = "#7c3aed"
-CYAN     = "#0891b2"
+ORANGE   = "#dc2626"
+VIOLET   = "#444444"
+CYAN     = "#888888"
 
-THREAT_COLORS = {"High": RED, "Medium": AMBER, "Low": BLUE, "None": "#cbd5e1"}
-RISK_SCALE = [[0, "#e2e8ed"], [0.3, BLUE], [0.6, AMBER], [1, RED]]
-SERIES = [ACCENT, BLUE, VIOLET, CYAN, GREEN, AMBER, ORANGE, "#ec4899"]
+THREAT_COLORS = {"High": "#dc2626", "Medium": "#f87171", "Low": "#888888", "None": "#e5e5e5"}
+RISK_SCALE = [[0, "#e5e5e5"], [0.3, "#888888"], [0.6, "#f87171"], [1, "#dc2626"]]
+SERIES = ["#dc2626", "#111111", "#888888", "#16a34a", "#f87171", "#444444", "#bbbbbb"]
 
 PLOTLY_LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-    font=dict(family="Lato, sans-serif", color=TEXT2, size=12),
+    font=dict(family="Lato, sans-serif", color="#444444", size=12),
     margin=dict(l=0, r=0, t=8, b=0),
-    xaxis=dict(gridcolor=BORDER, tickfont=dict(family="Lato, sans-serif", color=TEXT3, size=11), linecolor=BORDER),
-    yaxis=dict(gridcolor=BORDER, tickfont=dict(family="Lato, sans-serif", color=TEXT3, size=11), linecolor=BORDER),
-    legend=dict(font=dict(color=TEXT2, size=11), bgcolor="rgba(0,0,0,0)"),
+    xaxis=dict(gridcolor="#e5e5e5", tickfont=dict(family="Lato, sans-serif", color="#888888", size=11), linecolor="#e5e5e5"),
+    yaxis=dict(gridcolor="#e5e5e5", tickfont=dict(family="Lato, sans-serif", color="#888888", size=11), linecolor="#e5e5e5"),
+    legend=dict(font=dict(color="#444444", size=11), bgcolor="rgba(0,0,0,0)"),
 )
 
 # ── CSS ──────────────────────────────────────────────────────────────────────
@@ -95,7 +95,7 @@ st.markdown(f"""
   .top-bar-logo {{
     width: 36px;
     height: 36px;
-    background: {ACCENT};
+    background: #111111;
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -136,17 +136,17 @@ st.markdown(f"""
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.03em;
-    color: {GREEN};
-    background: rgba(22, 163, 74, 0.08);
+    color: #16a34a;
+    background: rgba(22, 163, 74, 0.06);
     padding: 4px 12px;
     border-radius: 20px;
-    border: 1px solid rgba(22, 163, 74, 0.2);
+    border: 1px solid rgba(22, 163, 74, 0.15);
   }}
   .status-dot {{
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: {GREEN};
+    background: #16a34a;
     animation: pulse 2s ease-in-out infinite;
   }}
 
@@ -158,7 +158,7 @@ st.markdown(f"""
     font-weight: 600;
     padding-bottom: 10px;
     margin-bottom: 16px;
-    border-bottom: 2px solid {ACCENT};
+    border-bottom: 2px solid #111111;
     display: inline-block;
   }}
   .section-sub {{
@@ -182,16 +182,16 @@ st.markdown(f"""
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   }}
   .metric-card.accent-left {{
-    border-left: 4px solid {ACCENT};
+    border-left: 4px solid #111111;
   }}
   .metric-card.accent-red {{
-    border-left: 4px solid {RED};
+    border-left: 4px solid #dc2626;
   }}
   .metric-card.accent-amber {{
-    border-left: 4px solid {AMBER};
+    border-left: 4px solid #f87171;
   }}
   .metric-card.accent-blue {{
-    border-left: 4px solid {BLUE};
+    border-left: 4px solid #16a34a;
   }}
 
   .metric-label {{
@@ -217,11 +217,11 @@ st.markdown(f"""
     margin-top: 8px;
     color: {TEXT3};
   }}
-  .metric-delta.danger  {{ color: {RED}; }}
-  .metric-delta.warning {{ color: {AMBER}; }}
-  .metric-delta.success {{ color: {GREEN}; }}
-  .metric-delta.info    {{ color: {BLUE}; }}
-  .metric-delta.accent  {{ color: {ACCENT}; }}
+  .metric-delta.danger  {{ color: #dc2626; }}
+  .metric-delta.warning {{ color: #dc2626; }}
+  .metric-delta.success {{ color: #16a34a; }}
+  .metric-delta.info    {{ color: #16a34a; }}
+  .metric-delta.accent  {{ color: #111111; }}
 
   /* ── Risk Badges ── */
   .risk-badge {{
@@ -234,10 +234,10 @@ st.markdown(f"""
     text-transform: uppercase;
     letter-spacing: 0.03em;
   }}
-  .risk-badge.critical {{ background: rgba(220,38,38,0.1); color: {RED}; }}
-  .risk-badge.high     {{ background: rgba(234,88,12,0.1); color: {ORANGE}; }}
-  .risk-badge.medium   {{ background: rgba(217,119,6,0.1);  color: {AMBER}; }}
-  .risk-badge.low      {{ background: rgba(59,130,246,0.1);  color: {BLUE}; }}
+  .risk-badge.critical {{ background: rgba(220,38,38,0.08); color: #dc2626; }}
+  .risk-badge.high     {{ background: rgba(220,38,38,0.08); color: #dc2626; }}
+  .risk-badge.medium   {{ background: rgba(220,38,38,0.05); color: #f87171; }}
+  .risk-badge.low      {{ background: rgba(0,0,0,0.04);  color: #888888; }}
 
   /* ── Alert Cards ── */
   .alert-feed {{
@@ -258,9 +258,9 @@ st.markdown(f"""
     line-height: 1.6;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }}
-  .alert-card.severity-high   {{ border-left-color: {RED}; }}
-  .alert-card.severity-medium {{ border-left-color: {AMBER}; }}
-  .alert-card.severity-low    {{ border-left-color: {BLUE}; }}
+  .alert-card.severity-high   {{ border-left-color: #dc2626; }}
+  .alert-card.severity-medium {{ border-left-color: #f87171; }}
+  .alert-card.severity-low    {{ border-left-color: #bbbbbb; }}
 
   .alert-header {{
     display: flex;
@@ -362,10 +362,10 @@ st.markdown(f"""
     font-size: 20px;
     font-weight: 700;
   }}
-  .risk-score-badge.critical {{ background: rgba(220,38,38,0.1); color: {RED}; }}
-  .risk-score-badge.high     {{ background: rgba(234,88,12,0.1); color: {ORANGE}; }}
-  .risk-score-badge.medium   {{ background: rgba(217,119,6,0.1);  color: {AMBER}; }}
-  .risk-score-badge.low      {{ background: rgba(59,130,246,0.1);  color: {BLUE}; }}
+  .risk-score-badge.critical {{ background: rgba(220,38,38,0.08); color: #dc2626; }}
+  .risk-score-badge.high     {{ background: rgba(220,38,38,0.08); color: #dc2626; }}
+  .risk-score-badge.medium   {{ background: rgba(220,38,38,0.05); color: #f87171; }}
+  .risk-score-badge.low      {{ background: rgba(0,0,0,0.04);  color: #888888; }}
 
   .intel-row {{
     display: flex;
@@ -388,7 +388,7 @@ st.markdown(f"""
   }}
   .kw-bar-label {{ color: {TEXT2}; min-width: 90px; font-weight: 400; }}
   .kw-bar-track {{ flex: 1; background: {SURFACE2}; height: 6px; border-radius: 3px; }}
-  .kw-bar-fill {{ height: 6px; border-radius: 3px; background: {ACCENT}; }}
+  .kw-bar-fill {{ height: 6px; border-radius: 3px; background: #dc2626; }}
   .kw-bar-count {{ color: {TEXT3}; min-width: 28px; text-align: right; }}
 
   /* ── Sidebar ── */
@@ -399,17 +399,17 @@ st.markdown(f"""
 
   /* ── Buttons ── */
   .stButton button {{
-    background: {ACCENT};
+    background: #111111;
     color: white;
     border: none;
-    border-radius: 24px;
+    border-radius: 8px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 12px;
     padding: 10px 20px;
     letter-spacing: 0.02em;
   }}
-  .stButton button:hover {{ background: #b02a5c; }}
+  .stButton button:hover {{ background: #333333; }}
 
   /* ── Form Labels ── */
   div[data-testid="stMultiSelect"] label,
@@ -431,14 +431,14 @@ st.markdown(f"""
 
   .stDownloadButton button {{
     background: transparent;
-    color: {ACCENT};
-    border: 2px solid {ACCENT};
-    border-radius: 24px;
+    color: #111111;
+    border: 1px solid #d4d4d4;
+    border-radius: 8px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 12px;
   }}
-  .stDownloadButton button:hover {{ background: {ACCENT}; color: white; }}
+  .stDownloadButton button:hover {{ background: #111111; color: white; }}
 
   /* ── Chart Containers ── */
   .chart-container {{
@@ -478,7 +478,7 @@ st.markdown(f"""
 
 # ── SIDEBAR ──────────────────────────────────────────────────────────��───────
 with st.sidebar:
-    st.markdown(f'<p style="font-family:Montserrat,sans-serif; font-size:11px; font-weight:700; color:{NAVY}; letter-spacing:0.1em; text-transform:uppercase; border-bottom:2px solid {ACCENT}; padding-bottom:8px; display:inline-block;">Controls</p>', unsafe_allow_html=True)
+    st.markdown(f'<p style="font-family:Montserrat,sans-serif; font-size:11px; font-weight:700; color:{NAVY}; letter-spacing:0.1em; text-transform:uppercase; border-bottom:2px solid #111111; padding-bottom:8px; display:inline-block;">Controls</p>', unsafe_allow_html=True)
 
     n_posts = st.slider("POST VOLUME", 500, 5000, 2000, step=250)
 
@@ -487,7 +487,7 @@ with st.sidebar:
         st.cache_data.clear()
 
     st.markdown("---")
-    st.markdown(f'<p style="font-family:Montserrat,sans-serif; font-size:11px; font-weight:700; color:{NAVY}; letter-spacing:0.1em; text-transform:uppercase; border-bottom:2px solid {ACCENT}; padding-bottom:8px; display:inline-block;">Filters</p>', unsafe_allow_html=True)
+    st.markdown(f'<p style="font-family:Montserrat,sans-serif; font-size:11px; font-weight:700; color:{NAVY}; letter-spacing:0.1em; text-transform:uppercase; border-bottom:2px solid #111111; padding-bottom:8px; display:inline-block;">Filters</p>', unsafe_allow_html=True)
 
     threat_filter = st.multiselect(
         "THREAT LEVEL",
@@ -496,7 +496,7 @@ with st.sidebar:
     )
 
     st.markdown("---")
-    st.markdown(f'<p style="font-family:Montserrat,sans-serif; font-size:11px; font-weight:700; color:{NAVY}; letter-spacing:0.1em; text-transform:uppercase; border-bottom:2px solid {ACCENT}; padding-bottom:8px; display:inline-block;">View</p>', unsafe_allow_html=True)
+    st.markdown(f'<p style="font-family:Montserrat,sans-serif; font-size:11px; font-weight:700; color:{NAVY}; letter-spacing:0.1em; text-transform:uppercase; border-bottom:2px solid #111111; padding-bottom:8px; display:inline-block;">View</p>', unsafe_allow_html=True)
 
     view_mode = st.radio(
         "DASHBOARD VIEW",
@@ -508,7 +508,7 @@ with st.sidebar:
     st.markdown("---")
     st.markdown(f"""
     <div style="font-size: 11px; color: {TEXT3}; line-height: 1.8;">
-        <div>Status: <span style="color:{GREEN}; font-weight:700;">Operational</span></div>
+        <div>Status: <span style="color:#16a34a; font-weight:700;">Operational</span></div>
         <div>Engine: NLP + NetworkX</div>
         <div>Version: 1.0.0</div>
         <div style="margin-top:8px; color:{TEXT4};">Built by Kimora Taylor</div>
@@ -637,11 +637,11 @@ if view_mode == "Overview":
         fig_sent = go.Figure()
         fig_sent.add_trace(go.Histogram(
             x=filtered[filtered["threat_level"] == "None"]["sentiment_polarity"],
-            name="Benign", marker_color=BORDER2, opacity=0.5, nbinsx=30,
+            name="Benign", marker_color="#d4d4d4", opacity=0.5, nbinsx=30,
         ))
         fig_sent.add_trace(go.Histogram(
             x=flagged["sentiment_polarity"],
-            name="Flagged", marker_color=ACCENT, opacity=0.8, nbinsx=30,
+            name="Flagged", marker_color="#dc2626", opacity=0.8, nbinsx=30,
         ))
         fig_sent.add_vline(x=0, line_dash="dot", line_color=TEXT4, opacity=0.5)
         fig_sent.update_layout(**PLOTLY_LAYOUT, height=260, barmode="overlay",
@@ -657,7 +657,7 @@ if view_mode == "Overview":
         if len(top_users) > 0:
             fig_tu = px.bar(
                 top_users, x="count", y="user", orientation="h",
-                color="count", color_continuous_scale=[[0, SURFACE2], [1, ACCENT]],
+                color="count", color_continuous_scale=[[0, "#f2f2f2"], [1, "#dc2626"]],
                 template="plotly_white", labels={"count": "", "user": ""},
             )
             fig_tu.update_layout(**PLOTLY_LAYOUT, height=260, coloraxis_showscale=False)
@@ -678,7 +678,7 @@ if view_mode == "Overview":
             tag_counts.columns = ["hashtag", "count"]
             fig_tags = px.bar(
                 tag_counts, x="count", y="hashtag", orientation="h",
-                color="count", color_continuous_scale=[[0, SURFACE2], [1, AMBER]],
+                color="count", color_continuous_scale=[[0, "#f2f2f2"], [1, "#111111"]],
                 template="plotly_white", labels={"count": "", "hashtag": ""},
             )
             fig_tags.update_layout(**PLOTLY_LAYOUT, height=300, coloraxis_showscale=False)
@@ -965,7 +965,7 @@ elif view_mode == "User Intel":
             st.markdown('<p class="section-header">Risk Distribution</p>', unsafe_allow_html=True)
             st.markdown('<div class="chart-container">', unsafe_allow_html=True)
             fig_risk = px.histogram(user_risk, x="risk_score", nbins=25,
-                color_discrete_sequence=[ACCENT], template="plotly_white", labels={"risk_score": ""})
+                color_discrete_sequence=["#111111"], template="plotly_white", labels={"risk_score": ""})
             fig_risk.update_layout(**PLOTLY_LAYOUT, height=200, showlegend=False, yaxis_title="")
             st.plotly_chart(fig_risk, use_container_width=True)
             st.markdown('</div>', unsafe_allow_html=True)
