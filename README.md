@@ -1,4 +1,4 @@
-# 🔍 SOCMINT Analyzer — Social Media Intelligence Platform
+# SOCMINT Analyzer - Social Media Intelligence Platform
 
 A real-world-inspired intelligence tool that analyzes social media posts to detect threats, extremist language, and suspicious coordination patterns using NLP and network analysis.
 
