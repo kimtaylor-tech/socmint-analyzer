@@ -23,115 +23,126 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── DESIGN TOKENS ────────────────────────────────────────────────────────────
-BG       = "#0a0a0f"
-SURFACE  = "#111318"
-SURFACE2 = "#1a1d24"
-SURFACE3 = "#22262e"
-BORDER   = "#1e2028"
-BORDER2  = "#2a2d36"
-BORDER3  = "#3a3d46"
-TEXT1    = "#f0f0f5"
-TEXT2    = "#9499a8"
-TEXT3    = "#5c6170"
-TEXT4    = "#3a3d46"
-ACCENT   = "#3b82f6"
-RED      = "#ef4444"
-ORANGE   = "#f97316"
-AMBER    = "#eab308"
-GREEN    = "#22c55e"
-CYAN     = "#06b6d4"
-VIOLET   = "#8b5cf6"
+# ── DESIGN TOKENS (Light / Talkwalker-inspired) ─────────────────────────────
+BG       = "#ffffff"
+BG2      = "#f7f9f9"
+SURFACE  = "#ffffff"
+SURFACE2 = "#f1f4f6"
+BORDER   = "#e2e8ed"
+BORDER2  = "#d1d9e0"
+NAVY     = "#012b3a"
+NAVY2    = "#213977"
+TEXT1    = "#012b3a"
+TEXT2    = "#3d5a6e"
+TEXT3    = "#80959c"
+TEXT4    = "#a8bcc4"
+ACCENT   = "#cc326b"   # Talkwalker fuchsia/magenta
+ACCENT2  = "#e03035"   # secondary red
+BLUE     = "#3b82f6"
+GREEN    = "#16a34a"
+AMBER    = "#d97706"
+RED      = "#dc2626"
+ORANGE   = "#ea580c"
+VIOLET   = "#7c3aed"
+CYAN     = "#0891b2"
 
-THREAT_COLORS = {"High": RED, "Medium": AMBER, "Low": ACCENT, "None": TEXT4}
-RISK_SCALE = [[0, SURFACE2], [0.3, ACCENT], [0.6, AMBER], [1, RED]]
-SERIES = [ACCENT, VIOLET, CYAN, "#10b981", AMBER, "#ec4899", ORANGE]
+THREAT_COLORS = {"High": RED, "Medium": AMBER, "Low": BLUE, "None": "#cbd5e1"}
+RISK_SCALE = [[0, "#e2e8ed"], [0.3, BLUE], [0.6, AMBER], [1, RED]]
+SERIES = [ACCENT, BLUE, VIOLET, CYAN, GREEN, AMBER, ORANGE, "#ec4899"]
 
 PLOTLY_LAYOUT = dict(
-    paper_bgcolor=BG, plot_bgcolor=BG,
-    font=dict(family="Inter, sans-serif", color=TEXT2, size=11),
+    paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+    font=dict(family="Lato, sans-serif", color=TEXT2, size=12),
     margin=dict(l=0, r=0, t=8, b=0),
-    xaxis=dict(gridcolor=BORDER, tickfont=dict(family="Geist Mono, monospace", color=TEXT3, size=10), linecolor=BORDER),
-    yaxis=dict(gridcolor=BORDER, tickfont=dict(family="Geist Mono, monospace", color=TEXT3, size=10), linecolor=BORDER),
-    legend=dict(font=dict(color=TEXT2, size=10), bgcolor="rgba(0,0,0,0)"),
+    xaxis=dict(gridcolor=BORDER, tickfont=dict(family="Lato, sans-serif", color=TEXT3, size=11), linecolor=BORDER),
+    yaxis=dict(gridcolor=BORDER, tickfont=dict(family="Lato, sans-serif", color=TEXT3, size=11), linecolor=BORDER),
+    legend=dict(font=dict(color=TEXT2, size=11), bgcolor="rgba(0,0,0,0)"),
 )
 
 # ── CSS ──────────────────────────────────────────────────────────────────────
 st.markdown(f"""
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap');
 
   html, body, [class*="css"] {{
-    font-family: 'Inter', sans-serif;
-    background-color: {BG};
+    font-family: 'Lato', sans-serif;
+    background-color: {BG2};
     color: {TEXT2};
   }}
-  .main {{ background: {BG}; }}
+  .main {{ background: {BG2}; }}
   h1, h2, h3 {{
-    font-family: 'Inter', sans-serif !important;
-    color: {TEXT1} !important;
+    font-family: 'Montserrat', sans-serif !important;
+    color: {NAVY} !important;
     font-weight: 600 !important;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.01em;
   }}
 
-  /* ── Command Bar ── */
-  .command-bar {{
+  /* ── Top Bar ── */
+  .top-bar {{
+    background: {BG};
+    border-bottom: 1px solid {BORDER};
+    padding: 14px 0 14px 0;
+    margin: -1rem -1rem 24px -1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid {BORDER};
-    margin-bottom: 24px;
   }}
-  .command-bar-left {{
+  .top-bar-left {{
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
   }}
-  .command-bar-logo {{
-    font-size: 20px;
-    color: {ACCENT};
-  }}
-  .command-bar-title {{
-    font-family: 'Inter', sans-serif;
+  .top-bar-logo {{
+    width: 36px;
+    height: 36px;
+    background: {ACCENT};
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
     font-size: 16px;
-    font-weight: 600;
-    color: {TEXT1};
-    letter-spacing: -0.02em;
+    font-family: 'Montserrat', sans-serif;
   }}
-  .command-bar-subtitle {{
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
+  .top-bar-title {{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: {NAVY};
+  }}
+  .top-bar-subtitle {{
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
     color: {TEXT3};
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-weight: 400;
   }}
-  .command-bar-right {{
+  .top-bar-right {{
     display: flex;
     align-items: center;
     gap: 16px;
   }}
 
-  /* ── Live Indicator ── */
+  /* ── Status Badge ── */
   @keyframes pulse {{
     0%, 100% {{ opacity: 1; }}
-    50% {{ opacity: 0.3; }}
+    50% {{ opacity: 0.4; }}
   }}
-  .live-badge {{
+  .status-badge {{
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
     color: {GREEN};
-    background: rgba(34, 197, 94, 0.08);
-    padding: 4px 10px;
-    border-radius: 4px;
-    border: 1px solid rgba(34, 197, 94, 0.15);
+    background: rgba(22, 163, 74, 0.08);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(22, 163, 74, 0.2);
   }}
-  .live-dot {{
+  .status-dot {{
     width: 6px;
     height: 6px;
     border-radius: 50%;
@@ -141,50 +152,67 @@ st.markdown(f"""
 
   /* ── Section Headers ── */
   .section-header {{
-    font-family: 'Geist Mono', monospace;
-    color: {TEXT3};
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    border-bottom: 1px solid {BORDER};
+    font-family: 'Montserrat', sans-serif;
+    color: {NAVY};
+    font-size: 14px;
+    font-weight: 600;
     padding-bottom: 10px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid {ACCENT};
+    display: inline-block;
+  }}
+  .section-sub {{
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    color: {TEXT3};
     margin-bottom: 16px;
   }}
 
   /* ── Metric Cards ── */
   .metric-card {{
-    background: {SURFACE};
+    background: {BG};
     border: 1px solid {BORDER};
-    border-radius: 8px;
-    padding: 16px 20px;
+    border-radius: 12px;
+    padding: 20px 24px;
     text-align: left;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.15s ease;
   }}
-  .metric-card.accent-red    {{ border-left: 3px solid {RED}; }}
-  .metric-card.accent-amber  {{ border-left: 3px solid {AMBER}; }}
-  .metric-card.accent-blue   {{ border-left: 3px solid {ACCENT}; }}
-  .metric-card.accent-green  {{ border-left: 3px solid {GREEN}; }}
+  .metric-card:hover {{
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }}
+  .metric-card.accent-left {{
+    border-left: 4px solid {ACCENT};
+  }}
+  .metric-card.accent-red {{
+    border-left: 4px solid {RED};
+  }}
+  .metric-card.accent-amber {{
+    border-left: 4px solid {AMBER};
+  }}
+  .metric-card.accent-blue {{
+    border-left: 4px solid {BLUE};
+  }}
 
   .metric-label {{
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: {TEXT3};
     margin-bottom: 6px;
   }}
   .metric-value {{
-    font-family: 'Inter', sans-serif;
-    font-size: 28px;
-    font-weight: 600;
-    color: {TEXT1};
-    letter-spacing: -0.02em;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: {NAVY};
     line-height: 1;
   }}
   .metric-delta {{
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
     font-weight: 400;
     margin-top: 8px;
     color: {TEXT3};
@@ -192,25 +220,26 @@ st.markdown(f"""
   .metric-delta.danger  {{ color: {RED}; }}
   .metric-delta.warning {{ color: {AMBER}; }}
   .metric-delta.success {{ color: {GREEN}; }}
-  .metric-delta.info    {{ color: {ACCENT}; }}
+  .metric-delta.info    {{ color: {BLUE}; }}
+  .metric-delta.accent  {{ color: {ACCENT}; }}
 
   /* ── Risk Badges ── */
   .risk-badge {{
     display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
   }}
-  .risk-badge.critical {{ background: rgba(239,68,68,0.12); color: {RED}; }}
-  .risk-badge.high     {{ background: rgba(249,115,22,0.12); color: {ORANGE}; }}
-  .risk-badge.medium   {{ background: rgba(234,179,8,0.12);  color: {AMBER}; }}
-  .risk-badge.low      {{ background: rgba(59,130,246,0.12);  color: {ACCENT}; }}
+  .risk-badge.critical {{ background: rgba(220,38,38,0.1); color: {RED}; }}
+  .risk-badge.high     {{ background: rgba(234,88,12,0.1); color: {ORANGE}; }}
+  .risk-badge.medium   {{ background: rgba(217,119,6,0.1);  color: {AMBER}; }}
+  .risk-badge.low      {{ background: rgba(59,130,246,0.1);  color: {BLUE}; }}
 
-  /* ── Alert Cards (Dataminr-style) ── */
+  /* ── Alert Cards ── */
   .alert-feed {{
     max-height: 700px;
     overflow-y: auto;
@@ -219,131 +248,148 @@ st.markdown(f"""
     padding-right: 4px;
   }}
   .alert-card {{
-    background: {SURFACE};
+    background: {BG};
     border: 1px solid {BORDER};
-    border-left: 3px solid {TEXT4};
-    border-radius: 6px;
-    padding: 14px 18px;
-    margin: 8px 0;
+    border-left: 4px solid {TEXT4};
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 10px 0;
     font-size: 13px;
-    line-height: 1.55;
+    line-height: 1.6;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }}
   .alert-card.severity-high   {{ border-left-color: {RED}; }}
   .alert-card.severity-medium {{ border-left-color: {AMBER}; }}
-  .alert-card.severity-low    {{ border-left-color: {ACCENT}; }}
+  .alert-card.severity-low    {{ border-left-color: {BLUE}; }}
 
   .alert-header {{
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }}
   .alert-user {{
-    color: {TEXT1};
-    font-weight: 500;
+    color: {NAVY};
+    font-weight: 700;
     font-size: 13px;
   }}
   .alert-meta {{
     color: {TEXT3};
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
+    font-size: 11px;
   }}
   .alert-score {{
     margin-left: auto;
-    font-family: 'Geist Mono', monospace;
-    font-size: 12px;
-    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
   }}
   .alert-text {{
     color: {TEXT2};
-    font-size: 13px;
-    margin-bottom: 10px;
-    line-height: 1.5;
+    font-size: 14px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    font-style: italic;
   }}
   .alert-tags {{
     display: flex;
-    gap: 12px;
+    gap: 16px;
     flex-wrap: wrap;
     color: {TEXT3};
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
+    font-size: 11px;
   }}
 
   /* ── Community Cards ── */
   .community-card {{
-    background: {SURFACE};
+    background: {BG};
     border: 1px solid {BORDER};
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 14px 18px;
     margin: 8px 0;
     font-size: 13px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }}
 
   /* ── Stat Block ── */
   .stat-block {{
-    background: {SURFACE};
+    background: {BG};
     border: 1px solid {BORDER};
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 20px 24px;
-    line-height: 2.2;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }}
   .stat-row {{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2px 0;
+    padding: 8px 0;
     border-bottom: 1px solid {BORDER};
   }}
   .stat-row:last-child {{ border-bottom: none; }}
-  .stat-label {{ color: {TEXT3}; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }}
-  .stat-value {{ color: {TEXT1}; font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; }}
+  .stat-label {{ color: {TEXT3}; font-size: 12px; font-weight: 400; }}
+  .stat-value {{ color: {NAVY}; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 600; }}
 
-  /* ── Intelligence Card (Recorded Future style) ── */
+  /* ── Intel Cards (Recorded Future style) ── */
   .intel-card {{
-    background: {SURFACE};
+    background: {BG};
     border: 1px solid {BORDER};
-    border-radius: 8px;
-    padding: 20px 24px;
+    border-radius: 12px;
+    padding: 24px;
     margin: 12px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }}
   .intel-card-header {{
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 16px;
-    padding-bottom: 12px;
+    padding-bottom: 14px;
     border-bottom: 1px solid {BORDER};
   }}
   .intel-card-name {{
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: {TEXT1};
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: {NAVY};
   }}
   .risk-score-badge {{
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
     font-weight: 700;
   }}
-  .risk-score-badge.critical {{ background: rgba(239,68,68,0.15); color: {RED}; }}
-  .risk-score-badge.high     {{ background: rgba(249,115,22,0.15); color: {ORANGE}; }}
-  .risk-score-badge.medium   {{ background: rgba(234,179,8,0.15);  color: {AMBER}; }}
-  .risk-score-badge.low      {{ background: rgba(59,130,246,0.15);  color: {ACCENT}; }}
+  .risk-score-badge.critical {{ background: rgba(220,38,38,0.1); color: {RED}; }}
+  .risk-score-badge.high     {{ background: rgba(234,88,12,0.1); color: {ORANGE}; }}
+  .risk-score-badge.medium   {{ background: rgba(217,119,6,0.1);  color: {AMBER}; }}
+  .risk-score-badge.low      {{ background: rgba(59,130,246,0.1);  color: {BLUE}; }}
 
   .intel-row {{
     display: flex;
     justify-content: space-between;
-    padding: 4px 0;
+    padding: 6px 0;
+    font-size: 13px;
+    border-bottom: 1px solid {BG2};
+  }}
+  .intel-row:last-child {{ border-bottom: none; }}
+  .intel-label {{ color: {TEXT3}; }}
+  .intel-value {{ color: {NAVY}; font-weight: 600; }}
+
+  /* ── Keyword Bars ── */
+  .kw-bar-row {{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
     font-size: 12px;
   }}
-  .intel-label {{ color: {TEXT3}; font-family: 'Geist Mono', monospace; font-size: 11px; }}
-  .intel-value {{ color: {TEXT1}; font-family: 'Geist Mono', monospace; font-size: 11px; }}
+  .kw-bar-label {{ color: {TEXT2}; min-width: 90px; font-weight: 400; }}
+  .kw-bar-track {{ flex: 1; background: {SURFACE2}; height: 6px; border-radius: 3px; }}
+  .kw-bar-fill {{ height: 6px; border-radius: 3px; background: {ACCENT}; }}
+  .kw-bar-count {{ color: {TEXT3}; min-width: 28px; text-align: right; }}
 
   /* ── Sidebar ── */
   .stSidebar {{
@@ -353,99 +399,86 @@ st.markdown(f"""
 
   /* ── Buttons ── */
   .stButton button {{
-    background: {TEXT1};
-    color: {BG};
+    background: {ACCENT};
+    color: white;
     border: none;
-    border-radius: 6px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
+    border-radius: 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
     font-size: 12px;
-    padding: 8px 16px;
+    padding: 10px 20px;
+    letter-spacing: 0.02em;
   }}
-  .stButton button:hover {{ background: #d4d4d8; }}
+  .stButton button:hover {{ background: #b02a5c; }}
 
   /* ── Form Labels ── */
   div[data-testid="stMultiSelect"] label,
   div[data-testid="stSlider"] label,
   div[data-testid="stSelectbox"] label,
   div[data-testid="stRadio"] label {{
-    color: {TEXT3};
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    font-family: 'Geist Mono', monospace;
+    color: {NAVY};
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
   }}
 
-  .stDataFrame {{ font-family: 'Geist Mono', monospace; font-size: 11px; }}
+  .stDataFrame {{ font-family: 'Lato', sans-serif; font-size: 12px; }}
 
-  hr {{ border-color: {BORDER} !important; opacity: 0.5; }}
+  hr {{ border-color: {BORDER} !important; opacity: 0.6; }}
   .stRadio > div {{ gap: 2px; }}
 
   .stDownloadButton button {{
     background: transparent;
-    color: {TEXT2};
-    border: 1px solid {BORDER2};
-    border-radius: 6px;
-    font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.03em;
+    color: {ACCENT};
+    border: 2px solid {ACCENT};
+    border-radius: 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
   }}
-  .stDownloadButton button:hover {{ border-color: {TEXT3}; color: {TEXT1}; }}
+  .stDownloadButton button:hover {{ background: {ACCENT}; color: white; }}
 
-  /* ── Filter Chips ── */
-  .filter-chips {{
-    display: flex;
-    gap: 6px;
+  /* ── Chart Containers ── */
+  .chart-container {{
+    background: {BG};
+    border: 1px solid {BORDER};
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     margin-bottom: 16px;
-    flex-wrap: wrap;
   }}
-  .filter-chip {{
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 4px;
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    border: 1px solid {BORDER2};
-    color: {TEXT2};
-    background: transparent;
-  }}
-  .filter-chip.active {{ background: rgba(59,130,246,0.1); border-color: {ACCENT}; color: {ACCENT}; }}
 
   /* ── Timestamp ── */
-  .ts {{
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    color: {TEXT4};
-  }}
+  .ts {{ font-size: 11px; color: {TEXT3}; }}
 </style>
 """, unsafe_allow_html=True)
 
-# ── COMMAND BAR ──────────────────────────────────────────────────────────────
-now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S UTC")
+# ── TOP BAR ─────────────────────────────────��────────────────────────────────
+now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 st.markdown(f"""
-<div class="command-bar">
-    <div class="command-bar-left">
-        <span class="command-bar-logo">◉</span>
+<div class="top-bar">
+    <div class="top-bar-left">
+        <div class="top-bar-logo">S</div>
         <div>
-            <div class="command-bar-title">SOCMINT Analyzer</div>
-            <div class="command-bar-subtitle">Social Media Intelligence Platform</div>
+            <div class="top-bar-title">SOCMINT Analyzer</div>
+            <div class="top-bar-subtitle">Social Media Intelligence Platform</div>
         </div>
     </div>
-    <div class="command-bar-right">
+    <div class="top-bar-right">
         <span class="ts">Last scan: {now_str}</span>
-        <div class="live-badge">
-            <div class="live-dot"></div>
+        <div class="status-badge">
+            <div class="status-dot"></div>
             LIVE
         </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# ── SIDEBAR ──────────────────────────────────────────────────────────────────
+# ── SIDEBAR ──────────────────────────────────────────────────────────��───────
 with st.sidebar:
-    st.markdown('<p class="section-header">CONTROLS</p>', unsafe_allow_html=True)
+    st.markdown(f'<p style="font-family:Montserrat,sans-serif; font-size:11px; font-weight:700; color:{NAVY}; letter-spacing:0.1em; text-transform:uppercase; border-bottom:2px solid {ACCENT}; padding-bottom:8px; display:inline-block;">Controls</p>', unsafe_allow_html=True)
 
     n_posts = st.slider("POST VOLUME", 500, 5000, 2000, step=250)
 
@@ -454,7 +487,7 @@ with st.sidebar:
         st.cache_data.clear()
 
     st.markdown("---")
-    st.markdown('<p class="section-header">FILTERS</p>', unsafe_allow_html=True)
+    st.markdown(f'<p style="font-family:Montserrat,sans-serif; font-size:11px; font-weight:700; color:{NAVY}; letter-spacing:0.1em; text-transform:uppercase; border-bottom:2px solid {ACCENT}; padding-bottom:8px; display:inline-block;">Filters</p>', unsafe_allow_html=True)
 
     threat_filter = st.multiselect(
         "THREAT LEVEL",
@@ -463,7 +496,7 @@ with st.sidebar:
     )
 
     st.markdown("---")
-    st.markdown('<p class="section-header">VIEW</p>', unsafe_allow_html=True)
+    st.markdown(f'<p style="font-family:Montserrat,sans-serif; font-size:11px; font-weight:700; color:{NAVY}; letter-spacing:0.1em; text-transform:uppercase; border-bottom:2px solid {ACCENT}; padding-bottom:8px; display:inline-block;">View</p>', unsafe_allow_html=True)
 
     view_mode = st.radio(
         "DASHBOARD VIEW",
@@ -474,12 +507,11 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown(f"""
-    <div style="font-family: Geist Mono, monospace; font-size: 10px; color: {TEXT4}; line-height: 1.8;">
-        <div class="section-header" style="margin-bottom:10px;">SYSTEM</div>
-        <div>Status: <span style="color:{GREEN};">operational</span></div>
+    <div style="font-size: 11px; color: {TEXT3}; line-height: 1.8;">
+        <div>Status: <span style="color:{GREEN}; font-weight:700;">Operational</span></div>
         <div>Engine: NLP + NetworkX</div>
         <div>Version: 1.0.0</div>
-        <div style="margin-top:8px; color:{TEXT4};">Kimora Taylor</div>
+        <div style="margin-top:8px; color:{TEXT4};">Built by Kimora Taylor</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -503,23 +535,17 @@ def run_network(n, seed):
 
 current_seed = st.session_state.get("run_seed", 42)
 
-with st.spinner("Analyzing..."):
+with st.spinner("Analyzing posts..."):
     df = run_pipeline(n_posts, current_seed)
 
 filtered = df[df["threat_level"].isin(threat_filter)]
 flagged = filtered[filtered["threat_level"] != "None"]
 
-# ── HELPER: Risk badge HTML ──────────────────────────────────────────────────
-def risk_badge(level):
-    cls = level.lower() if level in ("High", "Medium", "Low") else "low"
-    if level == "High":
-        cls = "critical"
-    return f'<span class="risk-badge {cls}">{level}</span>'
-
+# ── HELPERS ──────────────────────────────────────────────────────────────────
 def risk_score_color(score):
     if score >= 0.6: return RED
     if score >= 0.3: return AMBER
-    return ACCENT
+    return BLUE
 
 # ── KPI STRIP ────────────────────────────────────────────────────────────────
 m1, m2, m3, m4, m5 = st.columns(5)
@@ -532,10 +558,10 @@ unique_flagged_users = flagged["user"].nunique()
 pct = (flagged_count / total * 100) if total else 0
 
 with m1:
-    st.markdown(f"""<div class="metric-card">
+    st.markdown(f"""<div class="metric-card accent-left">
         <div class="metric-label">Posts Analyzed</div>
         <div class="metric-value">{total:,}</div>
-        <div class="metric-delta info">{n_posts:,} ingested</div>
+        <div class="metric-delta accent">{n_posts:,} ingested</div>
     </div>""", unsafe_allow_html=True)
 with m2:
     st.markdown(f"""<div class="metric-card accent-amber">
@@ -547,93 +573,104 @@ with m3:
     st.markdown(f"""<div class="metric-card accent-red">
         <div class="metric-label">High Threat</div>
         <div class="metric-value">{high_count}</div>
-        <div class="metric-delta danger">{"requires review" if high_count > 0 else "clear"}</div>
+        <div class="metric-delta danger">{"requires review" if high_count > 0 else "all clear"}</div>
     </div>""", unsafe_allow_html=True)
 with m4:
-    st.markdown(f"""<div class="metric-card">
+    st.markdown(f"""<div class="metric-card accent-amber">
         <div class="metric-label">Medium Threat</div>
         <div class="metric-value">{med_count}</div>
         <div class="metric-delta warning">monitoring</div>
     </div>""", unsafe_allow_html=True)
 with m5:
     st.markdown(f"""<div class="metric-card accent-blue">
-        <div class="metric-label">Unique Accounts</div>
+        <div class="metric-label">Flagged Accounts</div>
         <div class="metric-value">{unique_flagged_users}</div>
-        <div class="metric-delta info">flagged users</div>
+        <div class="metric-delta info">unique users</div>
     </div>""", unsafe_allow_html=True)
 
 st.markdown("<div style='height:24px'></div>", unsafe_allow_html=True)
 
+
 # ══════════════════════════════════════════════════════════════════════════════
 #  OVERVIEW
-# ═════════════════���════════════════════════════════════════════════════════════
+# ══════════════════════════════════════════════════════════════════════════════
 if view_mode == "Overview":
-    # Primary visualization — full-width timeline
-    st.markdown('<p class="section-header">THREAT ACTIVITY — 7 DAY TIMELINE</p>', unsafe_allow_html=True)
+    # Full-width timeline
+    st.markdown('<p class="section-header">Threat Activity Timeline</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-sub">7-day activity breakdown by threat level</p>', unsafe_allow_html=True)
+    st.markdown('<div class="chart-container">', unsafe_allow_html=True)
     tl = filtered.copy()
     tl["day_hour"] = tl["timestamp"].dt.floor("6h")
     timeline = tl.groupby(["day_hour", "threat_level"]).size().reset_index(name="count")
     fig_tl = px.area(
         timeline, x="day_hour", y="count", color="threat_level",
-        color_discrete_map=THREAT_COLORS, template="plotly_dark",
-        labels={"day_hour": "", "count": "", "threat_level": ""},
+        color_discrete_map=THREAT_COLORS, template="plotly_white",
+        labels={"day_hour": "", "count": "Posts", "threat_level": ""},
     )
     fig_tl.update_layout(**PLOTLY_LAYOUT, height=220)
-    fig_tl.update_traces(line=dict(width=1.5))
+    fig_tl.update_traces(line=dict(width=2))
     st.plotly_chart(fig_tl, use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    # Secondary panels — 3 columns
+    # 3-column secondary
     ov1, ov2, ov3 = st.columns(3)
 
     with ov1:
-        st.markdown('<p class="section-header">THREAT BREAKDOWN</p>', unsafe_allow_html=True)
+        st.markdown('<p class="section-header">Threat Breakdown</p>', unsafe_allow_html=True)
+        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         tc = flagged["threat_level"].value_counts()
         if len(tc) > 0:
             fig_pie = go.Figure(data=[go.Pie(
                 labels=tc.index, values=tc.values, hole=0.65,
                 marker_colors=[THREAT_COLORS.get(l, TEXT4) for l in tc.index],
-                textfont=dict(family="Geist Mono, monospace", size=10, color=TEXT2),
+                textfont=dict(family="Lato, sans-serif", size=11, color=TEXT2),
                 hovertemplate="<b>%{label}</b><br>%{value} posts<br>%{percent}<extra></extra>",
             )])
-            fig_pie.update_layout(paper_bgcolor=BG, margin=dict(l=0, r=0, t=8, b=0), height=260,
-                legend=dict(font=dict(color=TEXT2, size=10), bgcolor="rgba(0,0,0,0)"))
+            fig_pie.update_layout(paper_bgcolor="rgba(0,0,0,0)", margin=dict(l=0, r=0, t=8, b=0), height=260,
+                legend=dict(font=dict(color=TEXT2, size=11), bgcolor="rgba(0,0,0,0)"))
             st.plotly_chart(fig_pie, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with ov2:
-        st.markdown('<p class="section-header">SENTIMENT ANALYSIS</p>', unsafe_allow_html=True)
+        st.markdown('<p class="section-header">Sentiment Analysis</p>', unsafe_allow_html=True)
+        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         fig_sent = go.Figure()
         fig_sent.add_trace(go.Histogram(
             x=filtered[filtered["threat_level"] == "None"]["sentiment_polarity"],
-            name="Benign", marker_color=TEXT4, opacity=0.4, nbinsx=30,
+            name="Benign", marker_color=BORDER2, opacity=0.5, nbinsx=30,
         ))
         fig_sent.add_trace(go.Histogram(
             x=flagged["sentiment_polarity"],
-            name="Flagged", marker_color=RED, opacity=0.7, nbinsx=30,
+            name="Flagged", marker_color=ACCENT, opacity=0.8, nbinsx=30,
         ))
-        fig_sent.add_vline(x=0, line_dash="dot", line_color=BORDER3, opacity=0.5)
+        fig_sent.add_vline(x=0, line_dash="dot", line_color=TEXT4, opacity=0.5)
         fig_sent.update_layout(**PLOTLY_LAYOUT, height=260, barmode="overlay",
-            xaxis_title="", yaxis_title="")
+            xaxis_title="Negative ← → Positive", yaxis_title="")
         st.plotly_chart(fig_sent, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with ov3:
-        st.markdown('<p class="section-header">TOP FLAGGED ACCOUNTS</p>', unsafe_allow_html=True)
+        st.markdown('<p class="section-header">Top Flagged Accounts</p>', unsafe_allow_html=True)
+        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         top_users = flagged["user"].value_counts().head(8).reset_index()
         top_users.columns = ["user", "count"]
         if len(top_users) > 0:
             fig_tu = px.bar(
                 top_users, x="count", y="user", orientation="h",
-                color="count", color_continuous_scale=[[0, SURFACE2], [1, RED]],
-                template="plotly_dark", labels={"count": "", "user": ""},
+                color="count", color_continuous_scale=[[0, SURFACE2], [1, ACCENT]],
+                template="plotly_white", labels={"count": "", "user": ""},
             )
             fig_tu.update_layout(**PLOTLY_LAYOUT, height=260, coloraxis_showscale=False)
-            fig_tu.update_layout(yaxis=dict(tickfont=dict(family="Geist Mono, monospace", color=TEXT2, size=10)))
+            fig_tu.update_layout(yaxis=dict(tickfont=dict(family="Lato, sans-serif", color=TEXT2, size=11)))
             st.plotly_chart(fig_tu, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
-    # Bottom row — hashtags and recent high-threat
+    # Bottom: hashtags + recent alerts
     bt1, bt2 = st.columns([1, 1.5])
 
     with bt1:
-        st.markdown('<p class="section-header">TRENDING SIGNALS</p>', unsafe_allow_html=True)
+        st.markdown('<p class="section-header">Trending Signals</p>', unsafe_allow_html=True)
+        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         all_tags = " ".join(flagged["hashtags"].dropna().astype(str)).split()
         all_tags = [t for t in all_tags if t.startswith("#")]
         if all_tags:
@@ -642,14 +679,17 @@ if view_mode == "Overview":
             fig_tags = px.bar(
                 tag_counts, x="count", y="hashtag", orientation="h",
                 color="count", color_continuous_scale=[[0, SURFACE2], [1, AMBER]],
-                template="plotly_dark", labels={"count": "", "hashtag": ""},
+                template="plotly_white", labels={"count": "", "hashtag": ""},
             )
             fig_tags.update_layout(**PLOTLY_LAYOUT, height=300, coloraxis_showscale=False)
-            fig_tags.update_layout(yaxis=dict(tickfont=dict(family="Geist Mono, monospace", color=TEXT2, size=10)))
+            fig_tags.update_layout(yaxis=dict(tickfont=dict(family="Lato, sans-serif", color=TEXT2, size=11)))
             st.plotly_chart(fig_tags, use_container_width=True)
+        else:
+            st.info("No hashtags found.")
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with bt2:
-        st.markdown('<p class="section-header">RECENT HIGH-THREAT ALERTS</p>', unsafe_allow_html=True)
+        st.markdown('<p class="section-header">Recent High-Threat Alerts</p>', unsafe_allow_html=True)
         recent_high = flagged[flagged["threat_level"] == "High"].sort_values("timestamp", ascending=False).head(5)
         if len(recent_high) > 0:
             for _, row in recent_high.iterrows():
@@ -666,28 +706,19 @@ if view_mode == "Overview":
                     <div class="alert-tags">
                         <span>sentiment {row['sentiment_polarity']:.2f}</span>
                         <span>coord: {row['coordination_patterns']}</span>
-                        <span>{row['likes']} likes</span>
+                        <span>{row['likes']} likes · {row['reposts']} reposts</span>
                     </div>
                 </div>""", unsafe_allow_html=True)
         else:
-            st.markdown(f'<p style="color:{TEXT3}; font-size:12px;">No high-threat alerts in current data.</p>', unsafe_allow_html=True)
+            st.info("No high-threat alerts.")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  ALERT FEED (Dataminr Pulse-inspired)
-# ══════════════════════════════════════════════════════════════════════════════
+#  ALERT FEED
+# ═══════════════════════════════════════��══════════════════════════════════════
 elif view_mode == "Alert Feed":
-    st.markdown('<p class="section-header">ALERT FEED — REAL-TIME THREAT STREAM</p>', unsafe_allow_html=True)
-
-    # Filter chips
-    chip_html = '<div class="filter-chips">'
-    counts = {"High": high_count, "Medium": med_count, "Low": len(filtered[filtered["threat_level"] == "Low"])}
-    for lvl, cnt in counts.items():
-        active = "active" if lvl in threat_filter else ""
-        chip_html += f'<span class="filter-chip {active}">{lvl} ({cnt})</span>'
-    chip_html += f'<span class="filter-chip" style="margin-left:auto;">Total: {flagged_count}</span>'
-    chip_html += '</div>'
-    st.markdown(chip_html, unsafe_allow_html=True)
+    st.markdown('<p class="section-header">Alert Feed</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-sub">Real-time threat stream sorted by severity and score</p>', unsafe_allow_html=True)
 
     feed_col, detail_col = st.columns([2, 1])
 
@@ -723,23 +754,23 @@ elif view_mode == "Alert Feed":
         st.markdown('</div>', unsafe_allow_html=True)
 
     with detail_col:
-        st.markdown('<p class="section-header">THREAT SUMMARY</p>', unsafe_allow_html=True)
-
-        # Severity distribution mini chart
+        st.markdown('<p class="section-header">Summary</p>', unsafe_allow_html=True)
+        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         sev_order = ["High", "Medium", "Low"]
         sev_vals = [len(flagged[flagged["threat_level"] == s]) for s in sev_order]
         fig_sev = go.Figure(go.Bar(
             x=sev_vals, y=sev_order, orientation="h",
             marker_color=[THREAT_COLORS[s] for s in sev_order],
             text=sev_vals, textposition="outside",
-            textfont=dict(family="Geist Mono, monospace", color=TEXT2, size=10),
+            textfont=dict(family="Lato, sans-serif", color=TEXT2, size=11),
         ))
         fig_sev.update_layout(**PLOTLY_LAYOUT, height=140)
-        fig_sev.update_layout(yaxis=dict(tickfont=dict(family="Geist Mono, monospace", color=TEXT2, size=10)))
+        fig_sev.update_layout(yaxis=dict(tickfont=dict(family="Lato, sans-serif", color=TEXT2, size=11)))
         st.plotly_chart(fig_sev, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
-        # Top keywords
-        st.markdown('<p class="section-header">DETECTED KEYWORDS</p>', unsafe_allow_html=True)
+        st.markdown('<p class="section-header">Detected Keywords</p>', unsafe_allow_html=True)
+        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         all_kw = []
         for col in ["high_keywords", "med_keywords"]:
             for val in flagged[col].dropna():
@@ -750,32 +781,28 @@ elif view_mode == "Alert Feed":
             for kw, cnt in kw_counts.items():
                 bar_w = min(cnt / kw_counts.max() * 100, 100)
                 st.markdown(f"""
-                <div style="display:flex; align-items:center; gap:8px; margin:4px 0; font-family:Geist Mono,monospace; font-size:11px;">
-                    <span style="color:{TEXT2}; min-width:90px;">{kw}</span>
-                    <div style="flex:1; background:{BORDER}; height:4px; border-radius:2px;">
-                        <div style="width:{bar_w}%; background:{RED}; height:4px; border-radius:2px;"></div>
+                <div class="kw-bar-row">
+                    <span class="kw-bar-label">{kw}</span>
+                    <div class="kw-bar-track">
+                        <div class="kw-bar-fill" style="width:{bar_w}%;"></div>
                     </div>
-                    <span style="color:{TEXT3}; min-width:24px; text-align:right;">{cnt}</span>
+                    <span class="kw-bar-count">{cnt}</span>
                 </div>""", unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
-        st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
-
-        csv = flagged[[
-            "timestamp", "user", "text", "threat_level", "threat_score",
-            "sentiment_polarity", "high_keywords", "coordination_patterns",
-        ]].to_csv(index=False)
-        st.download_button(
-            label="Export alerts (.csv)",
-            data=csv, file_name="socmint_alerts.csv",
-            mime="text/csv", use_container_width=True,
-        )
+        st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
+        csv = flagged[["timestamp", "user", "text", "threat_level", "threat_score",
+            "sentiment_polarity", "high_keywords", "coordination_patterns"]].to_csv(index=False)
+        st.download_button(label="Export alerts (.csv)", data=csv,
+            file_name="socmint_alerts.csv", mime="text/csv", use_container_width=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  NETWORK (Palantir/Maltego-inspired)
-# ══════════════════════════════════════════════════════════════════════════════
+#  NETWORK
+# ══════════════════════════════════════════════════��═══════════════════════════
 elif view_mode == "Network":
-    st.markdown('<p class="section-header">INTERACTION NETWORK — COMMUNITY DETECTION</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-header">Interaction Network</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-sub">Conversation clusters and community detection</p>', unsafe_allow_html=True)
 
     with st.spinner("Building network..."):
         G, community_map, communities, user_risk, pos = run_network(n_posts, current_seed)
@@ -783,21 +810,19 @@ elif view_mode == "Network":
     if len(G.nodes()) == 0:
         st.warning("No network data available.")
     else:
+        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         edge_x, edge_y = [], []
-        edge_weights = []
         for u, v, d in G.edges(data=True):
             x0, y0 = pos[u]
             x1, y1 = pos[v]
             edge_x.extend([x0, x1, None])
             edge_y.extend([y0, y1, None])
-            edge_weights.append(d.get("weight", 1))
 
         edge_trace = go.Scatter(
             x=edge_x, y=edge_y, mode="lines",
-            line=dict(width=0.3, color="rgba(42,45,54,0.6)"), hoverinfo="none",
+            line=dict(width=0.5, color=BORDER2), hoverinfo="none",
         )
 
-        # Color nodes by community using series palette
         node_x, node_y, node_text, node_color, node_size = [], [], [], [], []
         for node in G.nodes():
             x, y = pos[node]
@@ -808,70 +833,61 @@ elif view_mode == "Network":
             risk = risk_row["risk_score"].values[0] if len(risk_row) > 0 else 0
             risk_lvl = risk_row["risk_level"].values[0] if len(risk_row) > 0 else "None"
             degree = G.degree(node, weight="weight")
-
-            node_text.append(
-                f"<b>@{node}</b><br>"
-                f"Risk: {risk_lvl} ({risk:.2f})<br>"
-                f"Community: {comm}<br>"
-                f"Connections: {degree:.0f}"
-            )
+            node_text.append(f"<b>@{node}</b><br>Risk: {risk_lvl} ({risk:.2f})<br>Community: {comm}<br>Connections: {degree:.0f}")
             node_color.append(risk)
-            node_size.append(max(5, min(degree * 1.8 + 4, 26)))
+            node_size.append(max(6, min(degree * 1.8 + 5, 28)))
 
         node_trace = go.Scatter(
             x=node_x, y=node_y, mode="markers+text",
             marker=dict(
                 size=node_size, color=node_color,
                 colorscale=RISK_SCALE,
-                colorbar=dict(
-                    title=dict(text="RISK", font=dict(color=TEXT3, size=10, family="Geist Mono, monospace")),
-                    tickfont=dict(color=TEXT3, size=9),
-                    thickness=10, len=0.3, x=1.02,
-                ),
-                line=dict(width=0.5, color=BG),
+                colorbar=dict(title=dict(text="Risk", font=dict(color=TEXT3, size=11)),
+                    tickfont=dict(color=TEXT3, size=10), thickness=10, len=0.3, x=1.02),
+                line=dict(width=1, color=BG),
             ),
             text=[n if G.degree(n, weight="weight") > 3 else "" for n in G.nodes()],
             textposition="top center",
-            textfont=dict(family="Geist Mono, monospace", size=7, color=TEXT3),
+            textfont=dict(family="Lato, sans-serif", size=8, color=TEXT3),
             hovertext=node_text, hoverinfo="text",
         )
 
         fig_net = go.Figure(data=[edge_trace, node_trace])
         fig_net.update_layout(
-            paper_bgcolor=BG, plot_bgcolor=BG,
+            paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor=BG2,
             margin=dict(l=0, r=0, t=8, b=0), height=520, showlegend=False,
             xaxis=dict(showgrid=False, zeroline=False, showticklabels=False, linewidth=0),
             yaxis=dict(showgrid=False, zeroline=False, showticklabels=False, linewidth=0),
         )
         st.plotly_chart(fig_net, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
-        # Community + stats row
         net1, net2 = st.columns([2, 1])
 
         with net1:
-            st.markdown('<p class="section-header">DETECTED COMMUNITIES</p>', unsafe_allow_html=True)
+            st.markdown('<p class="section-header">Detected Communities</p>', unsafe_allow_html=True)
             for comm in sorted(communities, key=lambda c: c["size"], reverse=True)[:8]:
                 members = comm["members"]
                 comm_risk = user_risk[user_risk["community_id"] == comm["community_id"]]
                 avg_risk = comm_risk["risk_score"].mean() if len(comm_risk) > 0 else 0
                 high_in_comm = len(comm_risk[comm_risk["risk_level"] == "High"])
-                risk_color = RED if avg_risk > 0.5 else AMBER if avg_risk > 0.2 else ACCENT
+                risk_color = RED if avg_risk > 0.5 else AMBER if avg_risk > 0.2 else BLUE
                 member_str = " ".join([f"@{m}" for m in members[:6]])
                 if len(members) > 6:
                     member_str += f" +{len(members) - 6}"
                 st.markdown(f"""
-                <div class="community-card" style="border-left:2px solid {risk_color};">
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
-                        <span style="color:{TEXT1}; font-weight:600; font-size:12px;">Community {comm['community_id']}</span>
-                        <span style="color:{TEXT3}; font-family:Geist Mono,monospace; font-size:10px;">{comm['size']} members</span>
+                <div class="community-card" style="border-left:4px solid {risk_color};">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+                        <span style="color:{NAVY}; font-weight:700; font-size:13px;">Community {comm['community_id']}</span>
+                        <span style="color:{TEXT3}; font-size:12px;">{comm['size']} members</span>
                         {"<span class='risk-badge critical'>"+str(high_in_comm)+" HIGH</span>" if high_in_comm > 0 else ""}
-                        <span style="color:{risk_color}; font-family:Geist Mono,monospace; font-size:10px; margin-left:auto;">{avg_risk:.2f}</span>
+                        <span style="color:{risk_color}; font-weight:700; font-size:13px; margin-left:auto;">{avg_risk:.2f}</span>
                     </div>
-                    <span style="color:{TEXT3}; font-family:Geist Mono,monospace; font-size:10px;">{member_str}</span>
+                    <span style="color:{TEXT3}; font-size:11px;">{member_str}</span>
                 </div>""", unsafe_allow_html=True)
 
         with net2:
-            st.markdown('<p class="section-header">NETWORK METRICS</p>', unsafe_allow_html=True)
+            st.markdown('<p class="section-header">Network Metrics</p>', unsafe_allow_html=True)
             density = nx.density(G)
             avg_degree = sum(dict(G.degree(weight="weight")).values()) / max(len(G.nodes()), 1)
             st.markdown(f"""
@@ -885,10 +901,11 @@ elif view_mode == "Network":
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  USER INTEL (Recorded Future Intelligence Cards)
+#  USER INTEL
 # ══════════════════════════════════════════════════════════════════════════════
 elif view_mode == "User Intel":
-    st.markdown('<p class="section-header">USER INTELLIGENCE — RISK ASSESSMENT</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-header">User Intelligence</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-sub">Risk assessment and entity profiles</p>', unsafe_allow_html=True)
 
     with st.spinner("Computing risk profiles..."):
         G, community_map, communities, user_risk, pos = run_network(n_posts, current_seed)
@@ -896,26 +913,21 @@ elif view_mode == "User Intel":
     if len(user_risk) == 0:
         st.warning("No user data available.")
     else:
-        # Data table
         disp_ur = user_risk.copy()
-        disp_ur.columns = [
-            "USER", "POSTS", "FLAGGED", "HIGH", "AVG",
-            "MAX", "DEGREE", "BETW", "RISK",
-            "LEVEL", "COMM",
-        ]
+        disp_ur.columns = ["USER", "POSTS", "FLAGGED", "HIGH", "AVG", "MAX", "DEGREE", "BETW", "RISK", "LEVEL", "COMM"]
 
         def color_risk(val):
             return {
-                "High": f"color: {RED}; font-weight: 600",
-                "Medium": f"color: {AMBER}; font-weight: 500",
-                "Low": f"color: {ACCENT}",
+                "High": f"color: {RED}; font-weight: 700",
+                "Medium": f"color: {AMBER}; font-weight: 600",
+                "Low": f"color: {BLUE}",
             }.get(val, "")
 
         styled_ur = disp_ur.style.map(color_risk, subset=["LEVEL"])
-        st.dataframe(styled_ur, use_container_width=True, height=350)
+        st.dataframe(styled_ur, use_container_width=True, height=300)
 
-        # Intelligence Cards for top risk users
-        st.markdown('<p class="section-header">HIGH-RISK INTELLIGENCE CARDS</p>', unsafe_allow_html=True)
+        st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
+        st.markdown('<p class="section-header">Intelligence Cards — High-Risk Profiles</p>', unsafe_allow_html=True)
 
         top_risk = user_risk[user_risk["risk_level"].isin(["High", "Medium"])].head(6)
         card_cols = st.columns(2)
@@ -933,14 +945,14 @@ elif view_mode == "User Intel":
                     <div class="intel-card-header">
                         <div>
                             <div class="intel-card-name">@{u['user']}</div>
-                            <div style="color:{TEXT3}; font-family:Geist Mono,monospace; font-size:10px; margin-top:2px;">Community {u['community_id']}</div>
+                            <div style="color:{TEXT3}; font-size:12px; margin-top:2px;">Community {u['community_id']}</div>
                         </div>
                         <div class="risk-score-badge {badge_cls}">{risk_99}</div>
                     </div>
                     <div class="intel-row"><span class="intel-label">First seen</span><span class="intel-value">{first_seen}</span></div>
                     <div class="intel-row"><span class="intel-label">Total posts</span><span class="intel-value">{u['post_count']}</span></div>
                     <div class="intel-row"><span class="intel-label">Flagged</span><span class="intel-value">{u['flagged_posts']} ({flagged_pct:.1f}%)</span></div>
-                    <div class="intel-row"><span class="intel-label">High-threat</span><span class="intel-value" style="color:{RED if u['high_threat_posts']>0 else TEXT1};">{u['high_threat_posts']}</span></div>
+                    <div class="intel-row"><span class="intel-label">High-threat</span><span class="intel-value" style="color:{RED if u['high_threat_posts']>0 else NAVY};">{u['high_threat_posts']}</span></div>
                     <div class="intel-row"><span class="intel-label">Avg score</span><span class="intel-value">{u['avg_threat_score']:.3f}</span></div>
                     <div class="intel-row"><span class="intel-label">Network degree</span><span class="intel-value">{u['network_degree']:.1f}</span></div>
                     <div class="intel-row"><span class="intel-label">Betweenness</span><span class="intel-value">{u['betweenness']:.4f}</span></div>
@@ -948,42 +960,39 @@ elif view_mode == "User Intel":
 
         st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
 
-        # Risk distribution charts
         rc1, rc2 = st.columns(2)
         with rc1:
-            st.markdown('<p class="section-header">RISK DISTRIBUTION</p>', unsafe_allow_html=True)
-            fig_risk = px.histogram(
-                user_risk, x="risk_score", nbins=25,
-                color_discrete_sequence=[ACCENT], template="plotly_dark",
-                labels={"risk_score": ""},
-            )
+            st.markdown('<p class="section-header">Risk Distribution</p>', unsafe_allow_html=True)
+            st.markdown('<div class="chart-container">', unsafe_allow_html=True)
+            fig_risk = px.histogram(user_risk, x="risk_score", nbins=25,
+                color_discrete_sequence=[ACCENT], template="plotly_white", labels={"risk_score": ""})
             fig_risk.update_layout(**PLOTLY_LAYOUT, height=200, showlegend=False, yaxis_title="")
             st.plotly_chart(fig_risk, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
         with rc2:
-            st.markdown('<p class="section-header">RISK LEVELS</p>', unsafe_allow_html=True)
+            st.markdown('<p class="section-header">Risk Levels</p>', unsafe_allow_html=True)
+            st.markdown('<div class="chart-container">', unsafe_allow_html=True)
             rl_counts = user_risk["risk_level"].value_counts()
             fig_rl = go.Figure(data=[go.Pie(
                 labels=rl_counts.index, values=rl_counts.values, hole=0.6,
                 marker_colors=[THREAT_COLORS.get(l, TEXT4) for l in rl_counts.index],
-                textfont=dict(family="Geist Mono, monospace", size=10, color=TEXT2),
+                textfont=dict(family="Lato, sans-serif", size=11, color=TEXT2),
             )])
-            fig_rl.update_layout(paper_bgcolor=BG, margin=dict(l=0, r=0, t=8, b=0), height=200,
-                legend=dict(font=dict(color=TEXT2, size=10), bgcolor="rgba(0,0,0,0)"))
+            fig_rl.update_layout(paper_bgcolor="rgba(0,0,0,0)", margin=dict(l=0, r=0, t=8, b=0), height=200,
+                legend=dict(font=dict(color=TEXT2, size=11), bgcolor="rgba(0,0,0,0)"))
             st.plotly_chart(fig_rl, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
         csv_ur = disp_ur.to_csv(index=False)
-        st.download_button(
-            label="Export user intel (.csv)",
-            data=csv_ur, file_name="socmint_user_intel.csv",
-            mime="text/csv", use_container_width=True,
-        )
+        st.download_button(label="Export user intel (.csv)", data=csv_ur,
+            file_name="socmint_user_intel.csv", mime="text/csv", use_container_width=True)
 
 
 # ── FOOTER ────────────────────────────────────────────────────────────────────
 st.markdown("---")
 st.markdown(
-    f'<p style="font-family: Geist Mono, monospace; font-size: 9px; color: {TEXT4}; text-align: center; letter-spacing:0.08em;">'
-    'SOCMINT ANALYZER v1.0.0 · NLP + NETWORK ANALYSIS ENGINE · KIMORA TAYLOR'
+    f'<p style="font-family: Lato, sans-serif; font-size: 11px; color: {TEXT3}; text-align: center;">'
+    'SOCMINT Analyzer v1.0.0 · NLP + Network Analysis Engine · Built by Kimora Taylor'
     '</p>', unsafe_allow_html=True,
 )
